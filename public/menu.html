@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Online</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #1e1e2f, #2c3e50);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .menu-button {
+      padding: 15px 30px;
+      margin: 15px;
+      font-size: 20px;
+      background-color: #3a86ff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+    }
+    .menu-button:hover {
+      background-color: #265df2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chọn chế độ chơi</h1>
+  <button class="menu-button" onclick="location.href='index.html'">Chơi với Máy hoặc PvP Local</button>
+  <button class="menu-button" onclick="location.href='online.html'">Chơi Online</button>
+</body>
+</html>

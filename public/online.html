@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Website</title>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #1e1e2f, #2c3e50);
+            font-family: Arial, sans-serif;
+            background-image: url('images/chess-bg.jpg');
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 100vh;
+            background-color: #32ef4bdf;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            padding: 15px;
+            box-shadow: 2px 0 10px rgba(0,0,0,3);
+            border-radius: 0 10px 10px 0;
+            transition: width 0.3s ease;
+            overflow-x: hidden;
+            z-index: 1000;
+        }
+
+        .sidebar:hover, .sidebar.active {
+            width: 240px;
+        }
+
+        .logo {
+            font-size: 0px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            white-space: nowrap;
+            transition: font-size 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .sidebar:hover .logo, .sidebar.active .logo {
+            font-size: 36px;
+            opacity: 1;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .nav-links li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 24px;
+            padding: 10px 0;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .nav-links li:hover {
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+
+        .nav-links .icon {
+            font-size: 28   px;
+            margin-right: 10px;
+        }
+
+        .nav-links .text {
+            opacity: 0;
+            visibility: hidden;
+            margin-left: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar:hover .nav-links .text, .sidebar.active .nav-links .text {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-links a {
+          text-decoration: none;
+          color: inherit;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          padding: 10px 0;
+        }
+
+        .container {
+            margin-left: 600px; 
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-right: 20px;
+        }
+
+        #board-container {
+            display: flex;
+            margin-left: -200px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #move-history {
+            width: 180px;
+            height: 540px;
+            background-color: #0d1119;
+            border-radius: 10px;
+            padding: 15px 20px;
+            color: #eee;
+            font-family: monospace;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .promotion-modal {
+          display: none;
+          position: fixed;
+          top: 47%;
+          left: 43%;
+          transform: translate(-50%, -50%);
+          background-color: white;
+          border: 2px solid black;
+          border-radius: 10px;
+          padding: 20px;
+          z-index: 1000;
+          text-align: center;
+        }
+        
+        .promote-piece {
+          width: 60px;
+          cursor: pointer;
+          margin: 5px;
+        }
+
+        canvas {
+            box-shadow: 0 0 10px black;
+            border-radius: 10px;
+        }
+
+        #move-history-container {
+          max-height: 400px;
+          max-width: 400px;
+          overflow-y: auto;
+          background-color: #000000ce;
+          margin: 0;
+          padding: 0;
+          border: none;
+          border-radius: 10px;
+          scrollbar-width: thin;
+          scrollbar-color: #0b0830 #060125ce;
+        }
+
+        #move-history-container::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        #move-history-container::-webkit-scrollbar-track {
+          background: #050721;
+        }
+
+        #move-history-container::-webkit-scrollbar-thumb {
+          background-color: #282a3e;
+          border-radius: 3px;
+        }
+        
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <a href="menu.html" style="text-decoration: none; color: inherit;">
+          <div class="logo">CHESSENA</div>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html"><span class="icon">🎮</span><span class="text">Play</span></a></li>
+          <li><a href="puzzles.html"><span class="icon">🧩</span><span class="text">Puzzles</span></a></li>
+          <li><a href="learn.html"><span class="icon">📚</span><span class="text">Learn</span></a></li>
+          <li><a href="watch.html"><span class="icon">🎥</span><span class="text">Watch</span></a></li>
+          <li><a href="news.html"><span class="icon">📰</span><span class="text">News</span></a></li>
+          <li><a href="social.html"><span class="icon">👥</span><span class="text">Social</span></a></li>
+        </ul>
+    </nav>
+
+
+    <div class="container">
+        <div id="board-container">
+            <canvas id="board" width="540" height="540"></canvas>
+        </div>
+        <div id="move-history-container" >
+          <div id="move-history">
+              <h3>LỊCH SỬ NƯỚC ĐI</h3>
+              <ol id="moves-list"></ol>
+          </div>
+        </div>
+    </div>
+
+
+    <div id="promotion-modal" style="display:none; position: fixed; top: 47%; left: 43%; transform: translate(-50%, -50%);
+        background-color: white; border: 2px solid black; border-radius: 10px; padding: 20px; z-index: 1000; text-align: center;">
+        <p>Chọn quân để phong cấp</p>
+        <img src="" alt="q" onclick="promote('q')" style="width:60px; cursor:pointer; margin:5px;">
+        <img src="" alt="r" onclick="promote('r')" style="width:60px; cursor:pointer; margin:5px;">
+        <img src="" alt="b" onclick="promote('b')" style="width:60px; cursor:pointer; margin:5px;">
+        <img src="" alt="n" onclick="promote('n')" style="width:60px; cursor:pointer; margin:5px;">
+    </div>
+
+    <div id="sidebar">
+      <p id="turn">Turn: White</p>
+      <p>White lost: <span id="white-lost"></span></p>
+      <p>Black lost: <span id="black-lost"></span></p>
+    </div>
+
+    <button onclick="restartGame()">Chơi lại</button>
+
+    <script>
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="online.js"></script>
+</body>
+</html>
