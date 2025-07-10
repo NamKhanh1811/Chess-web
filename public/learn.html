@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng Dẫn Chơi Cờ Vua</title>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #1e1e2f, #2c3e50);
+            font-family: Arial, sans-serif;
+            background-image: url('images/chess-bg.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 100vh;
+            background-color: #32ef4bdf;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            padding: 15px;
+            box-shadow: 2px 0 10px rgba(0,0,0,3);
+            border-radius: 0 10px 10px 0;
+            transition: width 0.3s ease;
+            overflow-x: hidden;
+            z-index: 1000;
+        }
+
+        .sidebar:hover, .sidebar.active {
+            width: 240px;
+        }
+
+        .logo {
+            font-size: 0px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            white-space: nowrap;
+            transition: font-size 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .sidebar:hover .logo, .sidebar.active .logo {
+            font-size: 36px;
+            opacity: 1;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .nav-links li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 24px;
+            padding: 10px 0;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .nav-links li:hover {
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+
+        .nav-links .icon {
+            font-size: 28   px;
+            margin-right: 10px;
+        }
+
+        .nav-links .text {
+            opacity: 0;
+            visibility: hidden;
+            margin-left: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar:hover .nav-links .text, .sidebar.active .nav-links .text {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-links a {
+          text-decoration: none;
+          color: inherit;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          padding: 10px 0;
+        }
+        
+                h1, h2, h3 {
+            color: #2c3e50;
+        }
+
+        #introduction, #piece-rules {
+            max-width: 800px;
+            margin: 20px auto;
+            background: whitesmoke;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .piece-section {
+            margin-bottom: 30px;
+        }
+
+        .piece-section img {
+            max-width: 300px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+            border: 1px solid #ccc;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+        
+        #button {
+            background-color: #1d6d03;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;  
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <a href="menu.html" style="text-decoration: none; color: inherit;">
+          <div class="logo">CHESSENA</div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html"><span class="icon">🎮</span><span class="text">Play</span></a></li>
+            <li><a href="puzzles.html"><span class="icon">🧩</span><span class="text">Puzzles</span></a></li>
+            <li><a href="learn.html"><span class="icon">📚</span><span class="text">Learn</span></a></li>
+            <li><a href="watch.html"><span class="icon">🎥</span><span class="text">Watch</span></a></li>
+            <li><a href="news.html"><span class="icon">📰</span><span class="text">News</span></a></li>
+            <li><a href="social.html"><span class="icon">👥</span><span class="text">Social</span></a></li>
+        </ul>
+    </nav>
+
+    <div id="introduction">
+        <h1>Hướng Dẫn Chơi Cờ Vua</h1>
+        <p>Cờ vua là một trò chơi chiến lược được chơi trên bàn cờ 8x8, gồm 64 ô vuông xen kẽ màu sáng và tối. Mỗi người
+            chơi bắt đầu với 16 quân cờ: 1 Vua, 1 Hậu, 2 Xe, 2 Mã, 2 Tượng, và 8 Tốt. Mục tiêu của trò chơi là chiếu hết
+            (checkmate) vua của đối phương, tức là đặt vua vào tình thế bị đe dọa bắt mà không thể thoát.</p>
+        <p>Trò chơi có thể kết thúc trong các trường hợp sau:</p>
+        <ul>
+            <li><strong>Chiếu hết (Checkmate):</strong> Vua bị đe dọa và không có nước đi hợp lệ để thoát.</li>
+            <li><strong>Hòa cờ (Stalemate):</strong> Người chơi không có nước đi hợp lệ và vua không bị chiếu.</li>
+            <li><strong>Bỏ cuộc (Resignation):</strong> Một người chơi tự nguyện bỏ cuộc.</li>
+            <li><strong>Hòa do thỏa thuận:</strong> Cả hai người chơi đồng ý hòa.</li>
+            <li><strong>Hòa do lặp lại nước đi hoặc luật 50 nước:</strong> Vị trí lặp lại ba lần hoặc không có quân nào
+                bị bắt và không có tốt nào di chuyển trong 50 lượt liên tiếp.</li>
+        </ul>
+    </div>
+
+    <div id="piece-rules">
+        <h2>Cách Di Chuyển và Bắt Quân của Các Quân Cờ</h2>
+        <div class="piece-section">
+            <h3>Vua (King)</h3>
+            <p><strong>Di chuyển:</strong> Vua di chuyển một ô theo bất kỳ hướng nào: ngang, dọc, hoặc chéo, miễn là ô
+                đó không bị đe dọa. Vua cũng có thể thực hiện nước đi đặc biệt gọi là nhập thành (castling) với xe trong
+                một số điều kiện.</p>
+            <p><strong>Bắt quân:</strong> Vua bắt quân đối phương bằng cách di chuyển vào ô chứa quân đó.</p>
+            <img src="images/vua.jpg" alt="Cách di chuyển của Vua">
+        </div>
+
+        <div class="piece-section">
+            <h3>Hậu (Queen)</h3>
+            <p><strong>Di chuyển:</strong> Hậu có thể di chuyển bất kỳ số ô nào theo hướng ngang, dọc, hoặc chéo, miễn
+                là không bị cản bởi quân khác.</p>
+            <p><strong>Bắt quân:</strong> Hậu bắt quân đối phương bằng cách di chuyển vào ô chứa quân đó.</p>
+            <img src="images/hau.jpg" alt="Cách di chuyển của Hậu">
+        </div>
+
+        <div class="piece-section">
+            <h3>Xe (Rook)</h3>
+            <p><strong>Di chuyển:</strong> Xe di chuyển bất kỳ số ô nào theo hướng ngang hoặc dọc, miễn là không bị cản
+                bởi quân khác.</p>
+            <p><strong>Bắt quân:</strong> Xe bắt quân đối phương bằng cách di chuyển vào ô chứa quân đó.</p>
+            <img src="images/xe.jpg" alt="Cách di chuyển của Xe">
+        </div>
+
+        <div class="piece-section">
+            <h3>Tượng (Bishop)</h3>
+            <p><strong>Di chuyển:</strong> Tượng di chuyển bất kỳ số ô nào theo hướng chéo, miễn là không bị cản bởi
+                quân khác. Mỗi tượng chỉ di chuyển trên các ô cùng màu với ô ban đầu của nó.</p>
+            <p><strong>Bắt quân:</strong> Tượng bắt quân đối phương bằng cách di chuyển vào ô chứa quân đó.</p>
+            <img src="images/tuong.jpg" alt="Cách di chuyển của Tượng">
+        </div>
+
+        <div class="piece-section">
+            <h3>Mã (Knight)</h3>
+            <p><strong>Di chuyển:</strong> Mã di chuyển theo hình chữ "L": hai ô theo một hướng (ngang hoặc dọc) và một
+                ô vuông góc, hoặc một ô theo một hướng và hai ô vuông góc. Mã là quân cờ duy nhất có thể "nhảy" qua các
+                quân khác.</p>
+            <p><strong>Bắt quân:</strong> Mã bắt quân đối phương bằng cách di chuyển vào ô chứa quân đó.</p>
+            <img src="images/Ma.gif" alt="Cách di chuyển của Mã">
+        </div>
+
+        <div class="piece-section">
+            <h3>Tốt (Pawn)</h3>
+            <p><strong>Di chuyển:</strong> Tốt di chuyển thẳng về phía trước một ô (hướng về phía đối phương). Từ vị trí
+                ban đầu, tốt có thể di chuyển hai ô. Tốt không thể đi lùi.</p>
+            <p><strong>Bắt quân:</strong> Tốt bắt quân đối phương bằng cách di chuyển chéo một ô về phía trước. Tốt cũng
+                có thể bắt "en passant" trong trường hợp đặc biệt khi tốt đối phương di chuyển hai ô từ vị trí ban đầu.
+            </p>
+            <div style="display: flex;">
+                <img src="images/tot.jpg" alt="Cách di chuyển của Tốt">
+                <img src="images/tot1.jpg" alt="Cách Tốt ăn">
+            </div>
+            <p><strong>Đặc biệt:</strong>Tốt có thể phong thành các con Hậu, Xe, Mã, Tượng khi di chuyển đến hết bàn Cờ</p>
+            <img src="images/tot2.jpg" alt="Phong Tốt">
+        </div>
+        <a href="index.html" id="button">Chơi</a>
+        </div>
+    </div>
+</body>
+</html>

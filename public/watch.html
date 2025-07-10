@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #3f3e3c;
+            color: #333;
+            background-image: url('images/chess-bg.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .main-thumbnail {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .main-thumbnail .frame {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .main-thumbnail img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 8px;
+        }
+        .main-thumbnail .title {
+            display: block;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+            text-decoration: none;
+        }
+        .main-thumbnail .title:hover {
+            color: #007bff;
+        }
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .thumbnail {
+            text-align: center;
+        }
+        .thumbnail .frame {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .thumbnail img {
+            width: 100%;
+            max-width: 300px;
+            height: 169px; 
+            object-fit: cover; 
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        .thumbnail img:hover {
+            transform: scale(1.05);
+        }
+        .thumbnail .title {
+            display: block;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+            text-decoration: none;
+        }
+        .thumbnail .title:hover {
+            color: #007bff;
+        }
+        @media (max-width: 768px) {
+            .thumbnail-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .thumbnail img {
+                max-width: 100%;
+                height: 150px; 
+            }
+        }
+        @media (max-width: 480px) {
+            .thumbnail-grid {
+                grid-template-columns: 1fr;
+            }
+            .thumbnail img {
+                max-width: 100%;
+                height: 169px;
+            }
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 100vh;
+            background-color: #32ef4bdf;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            padding: 15px;
+            box-shadow: 2px 0 10px rgba(0,0,0,3);
+            border-radius: 0 10px 10px 0;
+            transition: width 0.3s ease;
+            overflow-x: hidden;
+            z-index: 1000;
+        }
+
+        .sidebar:hover, .sidebar.active {
+            width: 240px;
+        }
+
+        .logo {
+            font-size: 0px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            white-space: nowrap;
+            transition: font-size 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .sidebar:hover .logo, .sidebar.active .logo {
+            font-size: 36px;
+            opacity: 1;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .nav-links li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 24px;
+            padding: 10px 0;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .nav-links li:hover {
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+
+        .nav-links .icon {
+            font-size: 28   px;
+            margin-right: 10px;
+        }
+
+        .nav-links .text {
+            opacity: 0;
+            visibility: hidden;
+            margin-left: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar:hover .nav-links .text, .sidebar.active .nav-links .text {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-links a {
+          text-decoration: none;
+          color: inherit;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: aliceblue;text-align: center;font-size: 5ch;"><strong>Some tips to get better at chess</strong></h1>
+     <nav class="sidebar">
+        <a href="menu.html" style="text-decoration: none; color: inherit;">
+          <div class="logo">CHESSENA</div>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html"><span class="icon">🎮</span><span class="text">Play</span></a></li>
+          <li><a href="puzzles.html"><span class="icon">🧩</span><span class="text">Puzzles</span></a></li>
+          <li><a href="learn.html"><span class="icon">📚</span><span class="text">Learn</span></a></li>
+          <li><a href="watch.html"><span class="icon">🎥</span><span class="text">Watch</span></a></li>
+          <li><a href="news.html"><span class="icon">📰</span><span class="text">News</span></a></li>
+          <li><a href="social.html"><span class="icon">👥</span><span class="text">Social</span></a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="main-thumbnail">
+            <a href="https://youtu.be/6Pqd7UFWr7M?si=0uzZGDWOr7H1J7Vw">
+                <div class="frame">
+                    <img src="images/video1.jpg" alt="Introduction to Chess">
+                    <span class="title">Introduction to Chess</span>
+                </div>
+            </a>
+        </div>
+        <div class="thumbnail-grid">
+            <div class="thumbnail">
+                <a href="https://youtu.be/Ib8XaRKCAfo?si=DSIZXajEeauXpI5D">
+                    <div class="frame">
+                        <img src="images/video2.png" alt="Opening Strategies">
+                        <span class="title">Opening Strategies</span>
+                    </div>
+                </a>
+            </div>
+            <div class="thumbnail">
+                <a href="https://youtu.be/yAnNQY2Ac6w?si=aGKLp4pYdp03lh-t">
+                    <div class="frame">
+                        <img src="images/video3.jpg" alt="Pawn Structures">
+                        <span class="title">Pawn Structures</span>
+                    </div>
+                </a>
+            </div>
+            <div class="thumbnail">
+                <a href="https://youtu.be/ilWQpdevLvI?si=43IMa7H-8xr4-hCN">
+                    <div class="frame">
+                        <img src="images/video4.jpg" alt="10 Ways To Use Your Knights Effectively">
+                        <span class="title">10 Ways To Use Your Knights Effectively</span>
+                    </div>
+                </a>
+            </div>
+            <div class="thumbnail">
+                <a href="https://youtu.be/1jf69INEj0c?si=1y39zBLKaVn8oz3s">
+                    <div class="frame">
+                        <img src="images/video5.jpg" alt="Bishop Pair Advantage">
+                        <span class="title">Bishop Pair Advantage</span>
+                    </div>
+                </a>
+            </div>
+            <div class="thumbnail">
+                <a href="https://youtu.be/7lgb7lcD5TE?si=cx1ft4gEQxuBzyMX">
+                    <div class="frame">
+                        <img src="images/video6.jpg" alt="Rook Endgames">
+                        <span class="title">Rook Endgames</span>
+                    </div>
+                </a>
+            </div>
+            <div class="thumbnail">
+                <a href="https://youtu.be/cY9zitJFglc?si=RUFVJvghdf4oriHN">
+                    <div class="frame">
+                        <img src="images/video7.jpg" alt="Queen Maneuvers">
+                        <span class="title"> Queen Maneuvers</span>
+                    </div>
+                </a>
+            </div>
+            <div class="thumbnail">
+                <a href="https://youtu.be/FyvJMCDeeT4?si=q_2ZLUTN2huxa5f_">
+                    <div class="frame">
+                        <img src="images/video8.jpg" alt="King Safety">
+                        <span class="title">King Safety</span>
+                    </div>
+                </a>
+            </div>
+            <div class="thumbnail">
+                <a href="https://youtu.be/iBZLU1FXhcI?si=sy8wCS8nml9RyVzr">
+                    <div class="frame">
+                        <img src="images/video9.jpg" alt="6 Checkmate Patterns YOU MUST KNOW">
+                        <span class="title">6 Checkmate Patterns YOU MUST KNOW</span>
+                    </div>
+                </a>
+            </div>
+            <div class="thumbnail">
+                <a href="https://youtu.be/kbC3T3lNG0s?si=BteNzvT8xkCDgSXL">
+                    <div class="frame">
+                        <img src="images/video10.jpg" alt="3 Tips to Avoid STALEMATE in Chess">
+                        <span class="title">3 Tips to Avoid STALEMATE in Chess</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div style="padding-top: 3ch; ;" class="main-thumbnail">
+
+        <div class="frame"><a href="https://www.chess.com/watch" class="title" style="font-size: 3ch;">Click here for more tips :></a>
+        </div>
+    </div>
+</body>
+</html>
