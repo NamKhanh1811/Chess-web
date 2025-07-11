@@ -10,6 +10,8 @@
             background: linear-gradient(135deg, #1e1e2f, #2c3e50);
             font-family: Arial, sans-serif;
             background-image: url('images/chess-bg.jpg');
+            background-size: cover;
+            background-position: center;
         }
 
         .sidebar {
@@ -195,8 +197,8 @@
         
         #main-play-button {
           font-size: 20px;
-          background-color: #3630e7ad;
           padding: 10px 20px;
+          background-image: url('background-texture.png');
           background-size: cover;
           background-position: center;
           cursor: pointer;
@@ -214,7 +216,6 @@
           padding: 5px 8px;
           background-color : #78749f;
         }
-
     </style>
 </head>
 <body>
@@ -223,7 +224,7 @@
           <div class="logo">CHESSENA</div>
         </a>
         <ul class="nav-links">
-          <li><a href="index.html"><span class="icon">🎮</span><span class="text">Play</span></a></li>
+          <li><a href="chess.html"><span class="icon">🎮</span><span class="text">Play</span></a></li>
           <li><a href="puzzles.html"><span class="icon">🧩</span><span class="text">Puzzles</span></a></li>
           <li><a href="learn.html"><span class="icon">📚</span><span class="text">Learn</span></a></li>
           <li><a href="watch.html"><span class="icon">🎥</span><span class="text">Watch</span></a></li>
@@ -238,9 +239,10 @@
         </div>
         <div id="right-panel">
           <div id='clock-container'>
-              <div id='black-clock'>⏱️ Đen: 10:00</div>
-              <div id='white-clock'>⏱️ Trắng: 10:00</div>
+              <div id='black-clock'></div>
+              <div id='white-clock'></div>
           </div>
+          <div id="turn" style="color:white; font-size:18px; margin-bottom: 10px;">Turn: White</div>
           <div id="move-history-container" >
             <div id="move-history">
                 <h3>LỊCH SỬ NƯỚC ĐI</h3>
@@ -270,6 +272,5 @@
     </div>
 
     <script src="chess.js"></script>
-
 </body>
 </html>
